@@ -1,0 +1,5 @@
+name: DisguiseMe
+main: me.laxynd.disguiseme.DisguiseMe
+author: Laxynd
+version: 0.0.1-SNAPSHOT
+depend: [ProtocolLib]
