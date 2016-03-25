@@ -57,6 +57,7 @@ import me.laxynd.disguiseme.disguisetype.DisguiseCreeper;
 import me.laxynd.disguiseme.disguisetype.DisguiseEnderCrystal;
 import me.laxynd.disguiseme.disguisetype.DisguiseEnderDragon;
 import me.laxynd.disguiseme.disguisetype.DisguiseEnderman;
+import me.laxynd.disguiseme.disguisetype.DisguiseEndermite;
 import me.laxynd.disguiseme.disguisetype.DisguiseFireball;
 import me.laxynd.disguiseme.disguisetype.DisguiseFirework;
 import me.laxynd.disguiseme.disguisetype.DisguiseGhast;
@@ -74,6 +75,7 @@ import me.laxynd.disguiseme.disguisetype.DisguisePlayer;
 import me.laxynd.disguiseme.disguisetype.DisguiseRabbit;
 import me.laxynd.disguiseme.disguisetype.DisguiseSheep;
 import me.laxynd.disguiseme.disguisetype.DisguiseShulker;
+import me.laxynd.disguiseme.disguisetype.DisguiseSilverfish;
 import me.laxynd.disguiseme.disguisetype.DisguiseSkeleton;
 import me.laxynd.disguiseme.disguisetype.DisguiseSlime;
 import me.laxynd.disguiseme.disguisetype.DisguiseSnowman;
@@ -108,6 +110,7 @@ public class DisguiseAPI {
 		registerDisguiseType(DisguiseEnderCrystal.class);
 		registerDisguiseType(DisguiseEnderDragon.class);
 		registerDisguiseType(DisguiseEnderman.class);
+		registerDisguiseType(DisguiseEndermite.class);
 		registerDisguiseType(DisguiseFireball.class);
 		registerDisguiseType(DisguiseFirework.class);
 		registerDisguiseType(DisguiseGhast.class);
@@ -124,6 +127,7 @@ public class DisguiseAPI {
 		registerDisguiseType(DisguiseRabbit.class);
 		registerDisguiseType(DisguiseSheep.class);
 		registerDisguiseType(DisguiseShulker.class);
+		registerDisguiseType(DisguiseSilverfish.class);
 		registerDisguiseType(DisguiseSkeleton.class);
 		registerDisguiseType(DisguiseSlime.class);
 		registerDisguiseType(DisguiseSnowman.class);
@@ -151,6 +155,7 @@ public class DisguiseAPI {
 
 						if (!(dis instanceof DisguisePlayer)){
 							int id = packet.getEntityID();
+							
 							Entity e = getEntity(id);
 
 							if (e == null){

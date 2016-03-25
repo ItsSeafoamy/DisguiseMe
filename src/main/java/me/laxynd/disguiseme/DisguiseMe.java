@@ -16,7 +16,9 @@ public class DisguiseMe extends JavaPlugin {
 	@Override
 	public void onEnable(){
 		plugin = this;
-		
+				
 		nms = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
+		
+		DisguiseAPI.init();
 	}
 }
