@@ -22,6 +22,8 @@ public abstract class DisguiseLivingEntity extends Disguise {
 		dataTypes.put(7, VARINT);
 		dataTypes.put(8, BOOLEAN);
 		dataTypes.put(9, VARINT);
+		
+		set(6, 20f);
 	}
 	
 	@Override

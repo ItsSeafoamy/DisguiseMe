@@ -7,6 +7,7 @@ import static com.comphenix.protocol.PacketType.Play.Server.NAMED_ENTITY_SPAWN;
 import static com.comphenix.protocol.PacketType.Play.Server.NAMED_SOUND_EFFECT;
 import static com.comphenix.protocol.PacketType.Play.Server.PLAYER_INFO;
 import static com.comphenix.protocol.PacketType.Play.Server.SPAWN_ENTITY_LIVING;
+import static com.comphenix.protocol.PacketType.Play.Server.SPAWN_ENTITY;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,7 @@ import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import com.comphenix.packetwrapper.WrapperPlayServerNamedEntitySpawn;
 import com.comphenix.packetwrapper.WrapperPlayServerNamedSoundEffect;
 import com.comphenix.packetwrapper.WrapperPlayServerPlayerInfo;
+import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntity;
 import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntityLiving;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -147,6 +149,7 @@ public class DisguiseAPI {
 		ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
 		protocolManager.addPacketListener(new PacketAdapter(DisguiseMe.plugin, ListenerPriority.NORMAL, SPAWN_ENTITY_LIVING, ENTITY_METADATA, NAMED_ENTITY_SPAWN, PLAYER_INFO, ENTITY_EQUIPMENT, ENTITY_HEAD_ROTATION, NAMED_SOUND_EFFECT){
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onPacketSending(final PacketEvent event) {
 				if (event.getPacketType() == SPAWN_ENTITY_LIVING) {
@@ -155,7 +158,7 @@ public class DisguiseAPI {
 					if (isDisguised(packet.getEntityID())){
 						Disguise dis = getDisguise(packet.getEntityID());
 
-						if (!(dis instanceof DisguisePlayer)){
+						if (!(dis instanceof DisguisePlayer) && (dis instanceof DisguiseLivingEntity)){
 							int id = packet.getEntityID();
 
 							Entity e = getEntity(id);
@@ -171,7 +174,7 @@ public class DisguiseAPI {
 								return;
 							}
 
-							//dis.writeDefaults();
+							dis.writeDefaults();
 
 							WrappedDataWatcher watcher = getDefaultWatcher(dis.getEntityType(), event.getPlayer());
 
@@ -188,7 +191,7 @@ public class DisguiseAPI {
 
 							packet.setMetadata(watcher);
 							packet.setType(dis.getEntityType());
-						} else {
+						} else if (dis instanceof DisguisePlayer){
 							event.setCancelled(true);
 
 							DisguisePlayer dp = (DisguisePlayer) dis;
@@ -257,6 +260,21 @@ public class DisguiseAPI {
 									removePacket.sendPacket(event.getPlayer());
 								}
 							}, 20);
+						} else {
+							event.setCancelled(true);
+							
+							WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
+							spawnPacket.setEntityID(packet.getEntityID());
+							spawnPacket.setUUID(packet.getEntityUUID());
+							spawnPacket.setPitch(packet.getHeadPitch());
+							spawnPacket.setYaw(packet.getYaw());
+							spawnPacket.setX(packet.getX());
+							spawnPacket.setY(packet.getY());
+							spawnPacket.setZ(packet.getZ());
+							spawnPacket.setType(dis.getEntityType().getTypeId());
+							spawnPacket.setObjectData(0);
+							
+							spawnPacket.sendPacket(event.getPlayer());
 						}
 					}
 				} else if (event.getPacketType() == ENTITY_METADATA){
@@ -279,7 +297,7 @@ public class DisguiseAPI {
 							return;
 						}
 
-						//dis.writeDefaults();
+						dis.writeDefaults();
 
 						WrappedDataWatcher watcher = getDefaultWatcher(dis.getEntityType(), event.getPlayer());
 
@@ -305,7 +323,7 @@ public class DisguiseAPI {
 						if (isDisguised(packet.getEntityID())){
 							Disguise dis = getDisguise(packet.getEntityID());
 
-							if (!(dis instanceof DisguisePlayer)){
+							if (!(dis instanceof DisguisePlayer) && dis instanceof DisguiseLivingEntity){
 								dis.writeDefaults();
 
 								WrapperPlayServerSpawnEntityLiving spawnPacket = new WrapperPlayServerSpawnEntityLiving();
@@ -320,9 +338,27 @@ public class DisguiseAPI {
 								spawnPacket.sendPacket(event.getPlayer());
 
 								event.setCancelled(true);
-							} else {
+							} else if (dis instanceof DisguisePlayer){
 								DisguisePlayer d = (DisguisePlayer) dis;
 								packet.setPlayerUUID(d.getUUID());
+							} else {
+								event.setCancelled(true);
+								
+								WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
+								
+								spawnPacket.setEntityID(packet.getEntityID());
+								spawnPacket.setUUID(packet.getPlayerUUID());
+								spawnPacket.setX(e.getLocation().getX());
+								spawnPacket.setY(e.getLocation().getY());
+								spawnPacket.setZ(e.getLocation().getZ());
+								spawnPacket.setPitch(e.getLocation().getPitch());
+								spawnPacket.setYaw(e.getLocation().getYaw());
+								spawnPacket.setType(dis.getEntityType().getTypeId());
+								spawnPacket.setObjectData(0);
+								
+								spawnPacket.sendPacket(event.getPlayer());
+								
+								event.setCancelled(true);
 							}
 						}
 					}
@@ -359,6 +395,104 @@ public class DisguiseAPI {
 
 						packet.setData(datas);
 					}
+				} else if (event.getPacketType() == SPAWN_ENTITY){
+					WrapperPlayServerSpawnEntity packet = new WrapperPlayServerSpawnEntity(event.getPacket());
+					
+					Entity e = getEntity(packet.getEntityID());
+					
+					if (e == null) return;
+
+					if (isDisguised(packet.getEntityID())){
+						Disguise dis = getDisguise(packet.getEntityID());
+						
+						if (!(dis instanceof DisguisePlayer) && dis instanceof DisguiseLivingEntity){
+							dis.writeDefaults();
+
+							WrapperPlayServerSpawnEntityLiving spawnPacket = new WrapperPlayServerSpawnEntityLiving();
+							spawnPacket.setEntityID(packet.getEntityID());
+
+							spawnPacket.setX(e.getLocation().getX());
+							spawnPacket.setY(e.getLocation().getY());
+							spawnPacket.setZ(e.getLocation().getZ());
+							spawnPacket.setHeadPitch(e.getLocation().getPitch());
+							spawnPacket.setYaw(e.getLocation().getYaw());
+
+							spawnPacket.sendPacket(event.getPlayer());
+
+							event.setCancelled(true);
+						} else if (dis instanceof DisguisePlayer){
+							event.setCancelled(true);
+
+							DisguisePlayer dp = (DisguisePlayer) dis;
+
+							WrapperPlayServerPlayerInfo infoPacket = new WrapperPlayServerPlayerInfo();
+							infoPacket.setAction(PlayerInfoAction.ADD_PLAYER);
+
+							WrappedGameProfile profile = new WrappedGameProfile(dp.getUUID(), dp.getPlayerName());
+
+							List<PlayerInfoData> data = new ArrayList<PlayerInfoData>();
+							data.add(new PlayerInfoData(profile, 0, NativeGameMode.ADVENTURE, WrappedChatComponent.fromText(dp.getPlayerName())));
+
+							infoPacket.setData(data);
+
+							final WrapperPlayServerPlayerInfo removePacket = new WrapperPlayServerPlayerInfo();
+							removePacket.setAction(PlayerInfoAction.REMOVE_PLAYER);
+							removePacket.setData(data);
+
+							WrapperPlayServerNamedEntitySpawn spawnPacket = new WrapperPlayServerNamedEntitySpawn();
+							spawnPacket.setPlayerUUID(dp.getUUID());
+
+							spawnPacket.setEntityID(packet.getEntityID());
+
+							spawnPacket.setX(packet.getX());
+							spawnPacket.setY(packet.getY());
+							spawnPacket.setZ(packet.getZ());
+							spawnPacket.setPitch(packet.getPitch());
+							spawnPacket.setYaw(packet.getYaw());
+
+							WrapperPlayServerEntityEquipment held = new WrapperPlayServerEntityEquipment();
+							held.setEntityID(packet.getEntityID());
+							held.setSlot(0);
+
+							WrapperPlayServerEntityEquipment offhand = new WrapperPlayServerEntityEquipment();
+							offhand.setEntityID(packet.getEntityID());
+							offhand.setSlot(1);
+
+							WrapperPlayServerEntityEquipment boots = new WrapperPlayServerEntityEquipment();
+							boots.setEntityID(packet.getEntityID());
+							boots.setSlot(2);
+
+							WrapperPlayServerEntityEquipment leggings = new WrapperPlayServerEntityEquipment();
+							leggings.setEntityID(packet.getEntityID());
+							leggings.setSlot(3);
+
+							WrapperPlayServerEntityEquipment chestplate = new WrapperPlayServerEntityEquipment();
+							chestplate.setEntityID(packet.getEntityID());
+							chestplate.setSlot(4);
+
+							WrapperPlayServerEntityEquipment helmet = new WrapperPlayServerEntityEquipment();
+							helmet.setEntityID(packet.getEntityID());
+							helmet.setSlot(5);
+
+							infoPacket.sendPacket(event.getPlayer());
+							spawnPacket.sendPacket(event.getPlayer());
+							held.sendPacket(event.getPlayer());
+							offhand.sendPacket(event.getPlayer());
+							boots.sendPacket(event.getPlayer());
+							leggings.sendPacket(event.getPlayer());
+							chestplate.sendPacket(event.getPlayer());
+							helmet.sendPacket(event.getPlayer());
+
+							Bukkit.getScheduler().scheduleSyncDelayedTask(DisguiseMe.plugin, new Runnable(){
+								@Override
+								public void run(){
+									removePacket.sendPacket(event.getPlayer());
+								}
+							}, 20);
+						} else {
+							packet.setType(dis.getEntityType().getTypeId());
+						}
+					}					
 				} else if (event.getPacketType() == ENTITY_EQUIPMENT){
 					WrapperPlayServerEntityEquipment packet = new WrapperPlayServerEntityEquipment(event.getPacket());
 
@@ -373,6 +507,8 @@ public class DisguiseAPI {
 							} else {
 								event.setCancelled(true);
 							}
+						} else {
+							event.setCancelled(true);
 						}
 					}
 				} else if (event.getPacketType() == ENTITY_HEAD_ROTATION){
@@ -411,6 +547,7 @@ public class DisguiseAPI {
 										return;
 									} else {
 										packet.setSound(dis.getSound());
+										event.setCancelled(true);
 										return;
 									}
 								}
@@ -442,6 +579,7 @@ public class DisguiseAPI {
 		return disguises.get(entityID);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void disguise(int entityID, Disguise disguise){	
 		Entity e = getEntity(entityID);
 
@@ -484,7 +622,7 @@ public class DisguiseAPI {
 		WrapperPlayServerEntityHeadRotation headPacket = new WrapperPlayServerEntityHeadRotation();
 		headPacket.setEntityID(entityID);
 
-		if (!(disguise instanceof DisguisePlayer)){
+		if (!(disguise instanceof DisguisePlayer) && disguise instanceof DisguiseLivingEntity){
 			WrapperPlayServerSpawnEntityLiving spawnPacket = new WrapperPlayServerSpawnEntityLiving();
 			spawnPacket.setEntityID(entityID);
 
@@ -509,7 +647,7 @@ public class DisguiseAPI {
 					headPacket.sendPacket(p);
 				}
 			}
-		} else {
+		} else if (disguise instanceof DisguisePlayer){
 			DisguisePlayer dis = (DisguisePlayer) disguise;
 
 			ids.put(dis.getUUID(), entityID);
@@ -560,16 +698,28 @@ public class DisguiseAPI {
 					}, 20);
 				}
 			}
+		} else {
+			WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
+			spawnPacket.setEntityID(entityID);
+			spawnPacket.setUUID(e.getUniqueId());
+			spawnPacket.setPitch(e.getLocation().getPitch());
+			spawnPacket.setYaw(e.getLocation().getYaw());
+			spawnPacket.setX(e.getLocation().getX());
+			spawnPacket.setY(e.getLocation().getY());
+			spawnPacket.setZ(e.getLocation().getZ());
+			spawnPacket.setType(disguise.getEntityType().getTypeId());
+			spawnPacket.setObjectData(0);
+			
+			for (Player p : Bukkit.getOnlinePlayers()){
+				spawnPacket.sendPacket(p);
+			}
 		}
 	}
 
 	public static void update(int entityID){
 		WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
 		meta.setEntityId(entityID);
-
-		WrapperPlayServerEntityDestroy packet = new WrapperPlayServerEntityDestroy();
-		packet.setEntities(new int[]{entityID});
-
+		
 		WrapperPlayServerEntityMetadata metaPacket = new WrapperPlayServerEntityMetadata();
 		metaPacket.setEntityId(entityID);
 
