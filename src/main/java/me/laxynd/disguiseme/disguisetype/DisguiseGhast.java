@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ghast;
@@ -24,6 +25,11 @@ public class DisguiseGhast extends DisguiseFlying{
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.GHAST;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_GHAST_AMBIENT;
 	}
 	
 	public boolean isAttacking(){

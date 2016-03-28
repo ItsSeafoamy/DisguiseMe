@@ -4,6 +4,7 @@ import static me.laxynd.disguiseme.DataType.BYTE;
 import static me.laxynd.disguiseme.DataType.FLOAT;
 import static me.laxynd.disguiseme.DataType.VARINT;
 import java.util.UUID;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -70,6 +71,11 @@ public class DisguisePlayer extends DisguiseLivingEntity {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.PLAYER;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 	
 	public float getAdditionalHearts(){

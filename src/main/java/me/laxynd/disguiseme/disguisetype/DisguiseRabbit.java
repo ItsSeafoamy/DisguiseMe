@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Rabbit;
@@ -26,6 +27,11 @@ public class DisguiseRabbit extends DisguiseAnimal {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.RABBIT;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_RABBIT_AMBIENT;
 	}
 	
 	public int getType(){

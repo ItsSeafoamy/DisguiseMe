@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BYTE;
+import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -16,6 +17,11 @@ public class DisguiseArrow extends Disguise {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.ARROW;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 
 	@Override

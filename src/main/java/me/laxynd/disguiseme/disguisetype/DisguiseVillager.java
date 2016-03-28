@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
@@ -33,6 +34,11 @@ public class DisguiseVillager extends DisguiseAgeable {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.VILLAGER;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_VILLAGER_AMBIENT;
 	}
 	
 	public int getProfession(){

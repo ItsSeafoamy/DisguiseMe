@@ -2,6 +2,7 @@ package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Skeleton;
@@ -31,6 +32,11 @@ public class DisguiseSkeleton extends DisguiseMonster {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.SKELETON;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_SKELETON_AMBIENT;
 	}
 	
 	public int getType(){

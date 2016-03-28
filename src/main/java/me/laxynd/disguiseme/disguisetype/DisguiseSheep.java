@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BYTE;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Sheep;
@@ -27,6 +28,11 @@ public class DisguiseSheep extends DisguiseAnimal {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.SHEEP;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_SHEEP_AMBIENT;
 	}
 	
 	public byte getColor(){

@@ -2,6 +2,7 @@ package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BYTE;
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Guardian;
@@ -28,6 +29,15 @@ public class DisguiseGuardian extends DisguiseMonster {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.GUARDIAN;
+	}
+	
+	@Override
+	public Sound getSound(){
+		if (!isElder()){
+			return Sound.ENTITY_GUARDIAN_AMBIENT;
+		} else {
+			return Sound.ENTITY_ELDER_GUARDIAN_AMBIENT;
+		}
 	}
 	
 	public boolean isRetractingSpikes(){

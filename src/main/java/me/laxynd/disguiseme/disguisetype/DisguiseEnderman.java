@@ -3,6 +3,7 @@ package me.laxynd.disguiseme.disguisetype;
 import static me.laxynd.disguiseme.DataType.BLOCK_ID;
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -30,6 +31,11 @@ public class DisguiseEnderman extends DisguiseMonster {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.ENDERMAN;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_ENDERMEN_AMBIENT;
 	}
 	
 	@SuppressWarnings("deprecation")

@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BYTE;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.IronGolem;
@@ -26,6 +27,11 @@ public class DisguiseIronGolem extends DisguiseLivingEntity {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.IRON_GOLEM;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 	
 	public boolean isPlayerCreated(){

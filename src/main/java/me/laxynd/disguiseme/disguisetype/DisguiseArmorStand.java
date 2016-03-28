@@ -2,6 +2,7 @@ package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BYTE;
 import static me.laxynd.disguiseme.DataType.VECTOR3F;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -24,6 +25,11 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.ARMOR_STAND;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 	
 	@Override

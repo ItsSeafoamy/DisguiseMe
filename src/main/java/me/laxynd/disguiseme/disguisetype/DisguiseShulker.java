@@ -3,6 +3,7 @@ package me.laxynd.disguiseme.disguisetype;
 import static me.laxynd.disguiseme.DataType.BYTE;
 import static me.laxynd.disguiseme.DataType.DIRECTION;
 import static me.laxynd.disguiseme.DataType.OPT_POSITION;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 
 public class DisguiseShulker extends DisguiseGolem {
@@ -18,6 +19,11 @@ public class DisguiseShulker extends DisguiseGolem {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.SHULKER;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_SHULKER_AMBIENT;
 	}
 	
 	public byte getShieldHeight(){

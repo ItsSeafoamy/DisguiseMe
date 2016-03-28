@@ -4,6 +4,7 @@ import static me.laxynd.disguiseme.DataType.BYTE;
 import static me.laxynd.disguiseme.DataType.OPT_UUID;
 import static me.laxynd.disguiseme.DataType.VARINT;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
@@ -65,6 +66,11 @@ public class DisguiseHorse extends DisguiseAgeable {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.HORSE;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_HORSE_AMBIENT;
 	}
 	
 	public boolean getTamed(){

@@ -2,6 +2,7 @@ package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.SLOT;
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemFrame;
@@ -18,6 +19,11 @@ public class DisguiseItemFrame extends DisguiseHanging {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.ITEM_FRAME;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 
 	@Override

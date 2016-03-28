@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Pig;
@@ -26,6 +27,11 @@ public class DisguisePig extends DisguiseAnimal {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.PIG;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_PIG_AMBIENT;
 	}
 	
 	public boolean hasSaddle(){

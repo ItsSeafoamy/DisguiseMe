@@ -3,6 +3,7 @@ package me.laxynd.disguiseme.disguisetype;
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import static me.laxynd.disguiseme.DataType.FLOAT;
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Wolf;
@@ -32,6 +33,11 @@ public class DisguiseWolf extends DisguiseTameable {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.WOLF;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_WOLF_AMBIENT;
 	}
 	
 	public float getDamageTaken(){

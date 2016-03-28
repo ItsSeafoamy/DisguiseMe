@@ -2,6 +2,7 @@ package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -32,6 +33,11 @@ public class DisguiseCreeper extends DisguiseMonster {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.CREEPER;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 	
 	public int getState(){

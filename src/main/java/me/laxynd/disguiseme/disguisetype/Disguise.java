@@ -14,6 +14,7 @@ import static me.laxynd.disguiseme.DataType.STRING;
 import static me.laxynd.disguiseme.DataType.VARINT;
 import static me.laxynd.disguiseme.DataType.VECTOR3F;
 import java.util.Hashtable;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import me.laxynd.disguiseme.DisguiseAPI;
@@ -28,6 +29,12 @@ public abstract class Disguise {
 	 * @return The entity type
 	 */
 	public abstract EntityType getEntityType();
+	
+	/**
+	 * Gets the idle sound this disguise should make
+	 * @return The sound if it should make one, null otherwise
+	 */
+	public abstract Sound getSound();
 
 	public Disguise(){
 		dataTypes.put(0, BYTE);

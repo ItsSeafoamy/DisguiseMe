@@ -3,6 +3,7 @@ package me.laxynd.disguiseme.disguisetype;
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import static me.laxynd.disguiseme.DataType.FLOAT;
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -21,6 +22,11 @@ public class DisguiseAreaEffectCloud extends Disguise {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.AREA_EFFECT_CLOUD;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 
 	@Override

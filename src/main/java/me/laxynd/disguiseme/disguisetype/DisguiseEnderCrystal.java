@@ -2,6 +2,7 @@ package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import static me.laxynd.disguiseme.DataType.OPT_POSITION;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
@@ -17,6 +18,11 @@ public class DisguiseEnderCrystal extends Disguise {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.ENDER_CRYSTAL;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 
 	@Override

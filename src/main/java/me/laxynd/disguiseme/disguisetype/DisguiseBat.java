@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.BYTE;
+import org.bukkit.Sound;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -26,6 +27,11 @@ public class DisguiseBat extends DisguiseAmbient {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.BAT;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return Sound.ENTITY_BAT_AMBIENT;
 	}
 	
 	public boolean isHanging(){

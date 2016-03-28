@@ -4,6 +4,7 @@ import static com.comphenix.protocol.PacketType.Play.Server.ENTITY_EQUIPMENT;
 import static com.comphenix.protocol.PacketType.Play.Server.ENTITY_HEAD_ROTATION;
 import static com.comphenix.protocol.PacketType.Play.Server.ENTITY_METADATA;
 import static com.comphenix.protocol.PacketType.Play.Server.NAMED_ENTITY_SPAWN;
+import static com.comphenix.protocol.PacketType.Play.Server.NAMED_SOUND_EFFECT;
 import static com.comphenix.protocol.PacketType.Play.Server.PLAYER_INFO;
 import static com.comphenix.protocol.PacketType.Play.Server.SPAWN_ENTITY_LIVING;
 import java.lang.reflect.InvocationTargetException;
@@ -25,6 +26,7 @@ import com.comphenix.packetwrapper.WrapperPlayServerEntityEquipment;
 import com.comphenix.packetwrapper.WrapperPlayServerEntityHeadRotation;
 import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import com.comphenix.packetwrapper.WrapperPlayServerNamedEntitySpawn;
+import com.comphenix.packetwrapper.WrapperPlayServerNamedSoundEffect;
 import com.comphenix.packetwrapper.WrapperPlayServerPlayerInfo;
 import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntityLiving;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -141,10 +143,10 @@ public class DisguiseAPI {
 		registerDisguiseType(DisguiseWolf.class);
 		registerDisguiseType(DisguiseZombie.class);
 		registerDisguiseType(DisguiseZombiePigman.class);
-		
+
 		ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
-		protocolManager.addPacketListener(new PacketAdapter(DisguiseMe.plugin, ListenerPriority.NORMAL, SPAWN_ENTITY_LIVING, ENTITY_METADATA, NAMED_ENTITY_SPAWN, PLAYER_INFO, ENTITY_EQUIPMENT, ENTITY_HEAD_ROTATION){
+		protocolManager.addPacketListener(new PacketAdapter(DisguiseMe.plugin, ListenerPriority.NORMAL, SPAWN_ENTITY_LIVING, ENTITY_METADATA, NAMED_ENTITY_SPAWN, PLAYER_INFO, ENTITY_EQUIPMENT, ENTITY_HEAD_ROTATION, NAMED_SOUND_EFFECT){
 			@Override
 			public void onPacketSending(final PacketEvent event) {
 				if (event.getPacketType() == SPAWN_ENTITY_LIVING) {
@@ -155,7 +157,7 @@ public class DisguiseAPI {
 
 						if (!(dis instanceof DisguisePlayer)){
 							int id = packet.getEntityID();
-							
+
 							Entity e = getEntity(id);
 
 							if (e == null){
@@ -215,7 +217,7 @@ public class DisguiseAPI {
 							spawnPacket.setZ(packet.getZ());
 							spawnPacket.setPitch(packet.getHeadPitch());
 							spawnPacket.setYaw(packet.getYaw());
-							
+
 							WrapperPlayServerEntityEquipment held = new WrapperPlayServerEntityEquipment();
 							held.setEntityID(packet.getEntityID());
 							held.setSlot(0);
@@ -386,10 +388,39 @@ public class DisguiseAPI {
 								packet.setHeadYaw(dis.getHeadYaw());
 						}
 					}
+				} else if (event.getPacketType() == NAMED_SOUND_EFFECT){
+					WrapperPlayServerNamedSoundEffect packet = new WrapperPlayServerNamedSoundEffect(event.getPacket());
+
+					int x = (int) (packet.getEffectPositionX()/8.0);
+					int y = (int) (packet.getEffectPositionY()/8.0);
+					int z = (int) (packet.getEffectPositionZ()/8.0);
+
+					for (World w : Bukkit.getWorlds()){
+						for (Entity e : w.getEntities()){
+							int ex = (int) e.getLocation().getX();
+							int ey = (int) e.getLocation().getY();
+							int ez = (int) e.getLocation().getZ();
+							
+							if (x == ex && y == ey && z == ez){
+								if (isDisguised(e.getEntityId())){
+									Disguise dis = getDisguise(e.getEntityId());
+									
+									event.setCancelled(true);
+									if (dis.getSound() == null){
+										event.setCancelled(true);
+										return;
+									} else {
+										packet.setSound(dis.getSound());
+										return;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		});
-	}
+	} 
 
 	private static Entity getEntity(int entityID){
 		for (World w : Bukkit.getWorlds()){
@@ -613,7 +644,7 @@ public class DisguiseAPI {
 			}
 		}, 10);
 	}
-	
+
 	public static boolean registerDisguiseType(Class<? extends Disguise> clazz){
 		try {
 			Object obj = clazz.newInstance();
@@ -623,15 +654,15 @@ public class DisguiseAPI {
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
 
 	public static Disguise createDisguise(EntityType type){
 		Class<? extends Disguise> clazz = disguiseTypes.get(type);
-		
+
 		if (clazz == null) throw new NotImplementedException("This entity type does not currently have a disuise type associated with it");
-		
+
 		try {
 			return clazz.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
@@ -652,7 +683,7 @@ public class DisguiseAPI {
 			WrappedDataWatcher watcher = WrappedDataWatcher.getEntityWatcher(entity).deepClone();
 
 			entity.remove();
-			
+
 			return watcher;
 		} else {
 			return WrappedDataWatcher.getEntityWatcher(player).deepClone();

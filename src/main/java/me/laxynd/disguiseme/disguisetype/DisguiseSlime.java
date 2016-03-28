@@ -1,6 +1,7 @@
 package me.laxynd.disguiseme.disguisetype;
 
 import static me.laxynd.disguiseme.DataType.VARINT;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Slime;
@@ -26,6 +27,11 @@ public class DisguiseSlime extends DisguiseFlying {
 	@Override
 	public EntityType getEntityType() {
 		return EntityType.SLIME;
+	}
+	
+	@Override
+	public Sound getSound(){
+		return null;
 	}
 	
 	public int getSize(){
