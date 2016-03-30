@@ -155,6 +155,10 @@ public class DisguiseAPI {
 				if (event.getPacketType() == SPAWN_ENTITY_LIVING) {
 					WrapperPlayServerSpawnEntityLiving packet = new WrapperPlayServerSpawnEntityLiving(event.getPacket());
 
+					if (packet.getEntityID() == event.getPlayer().getEntityId()){
+						return;
+					}
+
 					if (isDisguised(packet.getEntityID())){
 						Disguise dis = getDisguise(packet.getEntityID());
 
@@ -262,7 +266,7 @@ public class DisguiseAPI {
 							}, 20);
 						} else {
 							event.setCancelled(true);
-							
+
 							WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
 							spawnPacket.setEntityID(packet.getEntityID());
 							spawnPacket.setUUID(packet.getEntityUUID());
@@ -273,12 +277,16 @@ public class DisguiseAPI {
 							spawnPacket.setZ(packet.getZ());
 							spawnPacket.setType(dis.getEntityType().getTypeId());
 							spawnPacket.setObjectData(0);
-							
+
 							spawnPacket.sendPacket(event.getPlayer());
 						}
 					}
 				} else if (event.getPacketType() == ENTITY_METADATA){
 					WrapperPlayServerEntityMetadata packet = new WrapperPlayServerEntityMetadata(event.getPacket());
+
+					if (packet.getEntityId() == event.getPlayer().getEntityId()){
+						return;
+					}
 
 					if (isDisguised(packet.getEntityId())){
 						Disguise dis = getDisguise(packet.getEntityId());
@@ -317,6 +325,10 @@ public class DisguiseAPI {
 				} else if (event.getPacketType() == NAMED_ENTITY_SPAWN){
 					WrapperPlayServerNamedEntitySpawn packet = new WrapperPlayServerNamedEntitySpawn(event.getPacket());
 
+					if (packet.getEntityID() == event.getPlayer().getEntityId()){
+						return;
+					}
+
 					Entity e = getEntity(packet.getEntityID());
 
 					if (e != null){
@@ -343,9 +355,9 @@ public class DisguiseAPI {
 								packet.setPlayerUUID(d.getUUID());
 							} else {
 								event.setCancelled(true);
-								
+
 								WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
-								
+
 								spawnPacket.setEntityID(packet.getEntityID());
 								spawnPacket.setUUID(packet.getPlayerUUID());
 								spawnPacket.setX(e.getLocation().getX());
@@ -355,9 +367,9 @@ public class DisguiseAPI {
 								spawnPacket.setYaw(e.getLocation().getYaw());
 								spawnPacket.setType(dis.getEntityType().getTypeId());
 								spawnPacket.setObjectData(0);
-								
+
 								spawnPacket.sendPacket(event.getPlayer());
-								
+
 								event.setCancelled(true);
 							}
 						}
@@ -397,14 +409,18 @@ public class DisguiseAPI {
 					}
 				} else if (event.getPacketType() == SPAWN_ENTITY){
 					WrapperPlayServerSpawnEntity packet = new WrapperPlayServerSpawnEntity(event.getPacket());
-					
+
+					if (packet.getEntityID() == event.getPlayer().getEntityId()){
+						return;
+					}
+
 					Entity e = getEntity(packet.getEntityID());
-					
+
 					if (e == null) return;
 
 					if (isDisguised(packet.getEntityID())){
 						Disguise dis = getDisguise(packet.getEntityID());
-						
+
 						if (!(dis instanceof DisguisePlayer) && dis instanceof DisguiseLivingEntity){
 							dis.writeDefaults();
 
@@ -496,6 +512,10 @@ public class DisguiseAPI {
 				} else if (event.getPacketType() == ENTITY_EQUIPMENT){
 					WrapperPlayServerEntityEquipment packet = new WrapperPlayServerEntityEquipment(event.getPacket());
 
+					if (packet.getEntityID() == event.getPlayer().getEntityId()){
+						return;
+					}
+
 					int id = packet.getEntityID();
 
 					if (isDisguised(id)){
@@ -513,6 +533,10 @@ public class DisguiseAPI {
 					}
 				} else if (event.getPacketType() == ENTITY_HEAD_ROTATION){
 					WrapperPlayServerEntityHeadRotation packet = new WrapperPlayServerEntityHeadRotation(event.getPacket());
+
+					if (packet.getEntityID() == event.getPlayer().getEntityId()){
+						return;
+					}
 
 					int id = packet.getEntityID();
 
@@ -536,20 +560,21 @@ public class DisguiseAPI {
 							int ex = (int) e.getLocation().getX();
 							int ey = (int) e.getLocation().getY();
 							int ez = (int) e.getLocation().getZ();
-							
+
 							if (x == ex && y == ey && z == ez){
 								if (isDisguised(e.getEntityId())){
 									Disguise dis = getDisguise(e.getEntityId());
-									
+
 									event.setCancelled(true);
-									if (dis.getSound() == null){
+									return;
+									/*if (dis.getSound() == null){
 										event.setCancelled(true);
 										return;
 									} else {
 										packet.setSound(dis.getSound());
 										event.setCancelled(true);
 										return;
-									}
+									}*/
 								}
 							}
 						}
@@ -709,9 +734,11 @@ public class DisguiseAPI {
 			spawnPacket.setZ(e.getLocation().getZ());
 			spawnPacket.setType(disguise.getEntityType().getTypeId());
 			spawnPacket.setObjectData(0);
-			
+
 			for (Player p : Bukkit.getOnlinePlayers()){
-				spawnPacket.sendPacket(p);
+				if (p.getEntityId() != entityID){
+					spawnPacket.sendPacket(p);
+				}
 			}
 		}
 	}
@@ -719,7 +746,7 @@ public class DisguiseAPI {
 	public static void update(int entityID){
 		WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
 		meta.setEntityId(entityID);
-		
+
 		WrapperPlayServerEntityMetadata metaPacket = new WrapperPlayServerEntityMetadata();
 		metaPacket.setEntityId(entityID);
 
@@ -751,14 +778,16 @@ public class DisguiseAPI {
 		headPacket.setEntityID(entityID);
 
 		for (Player p : Bukkit.getOnlinePlayers()){
-			meta.sendPacket(p);
-			held.sendPacket(p);
-			offhand.sendPacket(p);
-			boots.sendPacket(p);
-			leggings.sendPacket(p);
-			chestplate.sendPacket(p);
-			helmet.sendPacket(p);
-			headPacket.sendPacket(p);
+			if (p.getEntityId() != entityID){
+				meta.sendPacket(p);
+				held.sendPacket(p);
+				offhand.sendPacket(p);
+				boots.sendPacket(p);
+				leggings.sendPacket(p);
+				chestplate.sendPacket(p);
+				helmet.sendPacket(p);
+				headPacket.sendPacket(p);
+			}
 		}
 
 		if (getDisguise(entityID) instanceof DisguisePlayer){
@@ -775,7 +804,9 @@ public class DisguiseAPI {
 			infoPacket.setData(data);
 
 			for (Player p : Bukkit.getOnlinePlayers()){
-				infoPacket.sendPacket(p);
+				if (p.getEntityId() != entityID){
+					infoPacket.sendPacket(p);
+				}
 			}
 		}
 	}
