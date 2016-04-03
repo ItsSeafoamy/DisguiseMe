@@ -1,20 +1,21 @@
-/*
- *  PacketWrapper - Contains wrappers for each packet in Minecraft.
- *  Copyright (C) 2012 Kristian S. Stangeland
+/**
+ * This file is part of PacketWrapper.
+ * Copyright (C) 2012-2015 Kristian S. Strangeland
+ * Copyright (C) 2015 dmulloy2
  *
- *  This program is free software; you can redistribute it and/or modify it under the terms of the 
- *  GNU Lesser General Public License as published by the Free Software Foundation; either version 2 of 
- *  the License, or (at your option) any later version.
+ * PacketWrapper is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
- *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- *  See the GNU General Public License for more details.
+ * PacketWrapper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License along with this program; 
- *  if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 
- *  02111-1307 USA
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with PacketWrapper.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.comphenix.packetwrapper;
 
 import org.bukkit.World;
@@ -70,58 +71,28 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
     	return getEntity(event.getPlayer().getWorld());
     }
     
-    /**
-     * Retrieve the x axis of the new position.
-     * <p>
-     * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-     * @return The current X
-    */
     public double getX() {
-        return handle.getIntegers().read(1) / 32.0D;
+    	return handle.getDoubles().read(0);
     }
-    
-    /**
-     * Set the x axis of the new position.
-     * @param value - new value.
-    */
+
     public void setX(double value) {
-        handle.getIntegers().write(1, (int) Math.floor(value * 32.0D));
+    	handle.getDoubles().write(0, value);
     }
-    
-    /**
-     * Retrieve the y axis of the new position.
-     * <p>
-     * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-     * @return The current y
-    */
+
     public double getY() {
-        return handle.getIntegers().read(2) / 32.0D;
+    	return handle.getDoubles().read(1);
     }
-    
-    /**
-     * Set the y axis of the new position.
-     * @param value - new value.
-    */
+
     public void setY(double value) {
-        handle.getIntegers().write(2, (int) Math.floor(value * 32.0D));
+    	handle.getDoubles().write(1, value);
     }
-    
-    /**
-     * Retrieve the z axis of the new position.
-     * <p>
-     * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-     * @return The current z
-    */
+
     public double getZ() {
-        return handle.getIntegers().read(3) / 32.0D;
+    	return handle.getDoubles().read(2);
     }
-    
-    /**
-     * Set the z axis of the new position.
-     * @param value - new value.
-    */
+
     public void setZ(double value) {
-        handle.getIntegers().write(3, (int) Math.floor(value * 32.0D));
+    	handle.getDoubles().write(2, value);
     }
     
     /**
@@ -154,5 +125,13 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
     */
     public void setPitch(float value) {
         handle.getBytes().write(1, (byte) (value * 256.0F / 360.0F));
+    }
+
+    public boolean getOnGround() {
+    	return handle.getBooleans().read(0);
+    }
+
+    public void setOnGround(boolean value) {
+    	handle.getBooleans().write(0, value);
     }
 }

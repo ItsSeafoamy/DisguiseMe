@@ -113,58 +113,28 @@ public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
         setZ(position.getZ());
     }
 
-    /**
-     * Retrieve the x axis of the position.
-     * <p>
-     * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-     * @return The current X
-    */
     public double getX() {
-        return handle.getDoubles().read(0);
+    	return handle.getDoubles().read(0);
     }
 
-    /**
-     * Set the x axis of the position.
-     * @param value - new value.
-    */
     public void setX(double value) {
-        handle.getDoubles().write(0, value);
+    	handle.getDoubles().write(0, value);
     }
 
-    /**
-     * Retrieve the y axis of the position.
-     * <p>
-     * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-     * @return The current y
-    */
     public double getY() {
-        return handle.getDoubles().read(1);
+    	return handle.getDoubles().read(1);
     }
 
-    /**
-     * Set the y axis of the position.
-     * @param value - new value.
-    */
     public void setY(double value) {
-        handle.getDoubles().write(1, value);
+    	handle.getDoubles().write(1, value);
     }
 
-    /**
-     * Retrieve the z axis of the new position.
-     * <p>
-     * Note that the coordinate is rounded off to the nearest 1/32 of a meter.
-     * @return The current z
-    */
     public double getZ() {
-        return handle.getDoubles().read(2);
+    	return handle.getDoubles().read(2);
     }
 
-    /**
-     * Set the z axis of the new position.
-     * @param value - new value.
-    */
     public void setZ(double value) {
-        handle.getDoubles().write(2, value);
+    	handle.getDoubles().write(2, value);
     }
 
     /**
@@ -197,26 +167,6 @@ public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
     */
     public void setPitch(float value) {
         handle.getBytes().write(1, (byte) (value * 256.0F / 360.0F));
-    }
-
-    /**
-     * Retrieve Current Item.
-     * <p>
-     * Notes: the item the player is currently holding. Note that this should be 0 for "no item", unlike -1 used in other packets. A negative value crashes clients.
-     * @return The current Current Item
-     */
-    @Deprecated
-    public int getCurrentItem() {
-        return handle.getIntegers().read(4);
-    }
-
-    /**
-     * Set Current Item.
-     * @param value - new value.
-     */
-    @Deprecated
-    public void setCurrentItem(int value) {
-        handle.getIntegers().write(4, value);
     }
 
     /**

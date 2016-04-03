@@ -18,10 +18,9 @@
  */
 package com.comphenix.packetwrapper;
 
-import java.lang.reflect.Field;
-import org.bukkit.Sound;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers.SoundCategory;
 
 public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
     public static final PacketType TYPE = PacketType.Play.Server.NAMED_SOUND_EFFECT;
@@ -35,60 +34,14 @@ public class WrapperPlayServerNamedSoundEffect extends AbstractPacket {
         super(packet, TYPE);
     }
     
-    /**
-     * Retrieve Sound name.
-     * @return The current Sound name
-     */
-    @Deprecated
-    public String getSoundName() {
-        return handle.getStrings().read(0);
-    }
-    
-    /**
-     * Set Sound name.
-     * @param value - new value.
-     */
-    @Deprecated
-    public void setSoundName(String value) {
-        handle.getStrings().write(0, value);
-    }
-    
-    public Sound getSound(){
-    	try {
-        	Object object = handle.getModifier().read(0);
+    // TODO SoundEffect -> SoundEffect
 
-			Field a = object.getClass().getFields()[0];
-			a.setAccessible(true);
-			
-			Object obj = a.get(object);
-			
-			Field b = obj.getClass().getFields()[0];
-			b.setAccessible(true);
-			String sound = (String) b.get(object);
-			
-			return Sound.valueOf(sound.replace('.', '_').toUpperCase());
-		} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
-    	
-    	return null;
+    public SoundCategory getSoundCategory() {
+    	return handle.getSoundCategories().read(0);
     }
-    
-    public void setSound(Sound sound){
-    	try {
-    		Object object = handle.getModifier().read(0);
 
-			Field a = object.getClass().getFields()[0];
-			a.setAccessible(true);
-			
-			Object obj = a.get(object);
-			
-			Field b = obj.getClass().getFields()[0];
-			b.setAccessible(true);
-			b.set(object, sound.name().replace('_', '.').toLowerCase());
-		} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
+    public void setSoundCategory(SoundCategory value) {
+    	handle.getSoundCategories().write(0, value);
     }
     
     /**

@@ -1,20 +1,21 @@
-/*
- *  PacketWrapper - Contains wrappers for each packet in Minecraft.
- *  Copyright (C) 2012 Kristian S. Stangeland
+/**
+ * This file is part of PacketWrapper.
+ * Copyright (C) 2012-2015 Kristian S. Strangeland
+ * Copyright (C) 2015 dmulloy2
  *
- *  This program is free software; you can redistribute it and/or modify it under the terms of the 
- *  GNU Lesser General Public License as published by the Free Software Foundation; either version 2 of 
- *  the License, or (at your option) any later version.
+ * PacketWrapper is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
- *  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- *  See the GNU General Public License for more details.
+ * PacketWrapper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License along with this program; 
- *  if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 
- *  02111-1307 USA
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with PacketWrapper.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.comphenix.packetwrapper;
 
 import java.lang.reflect.InvocationTargetException;
@@ -40,9 +41,8 @@ public abstract class AbstractPacket {
 		if (handle == null)
 			throw new IllegalArgumentException("Packet handle cannot be NULL.");
 		if (!Objects.equal(handle.getType(), type))
-			throw new IllegalArgumentException(
-					handle.getHandle() + " is not a packet of type " + type);
-		
+			throw new IllegalArgumentException(handle.getHandle() + " is not a packet of type " + type);
+
 		this.handle = handle;
 	}
 
@@ -53,7 +53,7 @@ public abstract class AbstractPacket {
 	public PacketContainer getHandle() {
 		return handle;
 	}
-	
+
 	/**
 	 * Send the current packet to the given receiver.
 	 * @param receiver - the receiver.
@@ -66,13 +66,29 @@ public abstract class AbstractPacket {
 			throw new RuntimeException("Cannot send packet.", e);
 		}
 	}
-	
+
 	/**
 	 * Simulate receiving the current packet from the given sender.
 	 * @param sender - the sender.
 	 * @throws RuntimeException If the packet cannot be received.
+	 * @deprecated Misspelled. recieve -> receive
+	 * @see #receivePacket(Player)
 	 */
+	@Deprecated
 	public void recievePacket(Player sender) {
+		try {
+			ProtocolLibrary.getProtocolManager().recieveClientPacket(sender, getHandle());
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot recieve packet.", e);
+		}
+	}
+
+	/**
+	 * Simulate receiving the current packet from the given sender.
+	 * @param sender - the sender.
+	 * @throws RuntimeException if the packet cannot be received.
+	 */
+	public void receivePacket(Player sender) {
 		try {
 			ProtocolLibrary.getProtocolManager().recieveClientPacket(sender, getHandle());
 		} catch (Exception e) {
