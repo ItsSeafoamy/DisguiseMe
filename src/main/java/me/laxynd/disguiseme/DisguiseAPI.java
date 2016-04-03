@@ -36,6 +36,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
 import com.comphenix.protocol.wrappers.EnumWrappers.NativeGameMode;
 import com.comphenix.protocol.wrappers.EnumWrappers.PlayerInfoAction;
 import com.comphenix.protocol.wrappers.PlayerInfoData;
@@ -227,27 +228,27 @@ public class DisguiseAPI {
 
 							WrapperPlayServerEntityEquipment held = new WrapperPlayServerEntityEquipment();
 							held.setEntityID(packet.getEntityID());
-							held.setSlot(0);
+							held.setSlot(ItemSlot.MAINHAND);
 
 							WrapperPlayServerEntityEquipment offhand = new WrapperPlayServerEntityEquipment();
 							offhand.setEntityID(packet.getEntityID());
-							offhand.setSlot(1);
+							offhand.setSlot(ItemSlot.OFFHAND);
 
 							WrapperPlayServerEntityEquipment boots = new WrapperPlayServerEntityEquipment();
 							boots.setEntityID(packet.getEntityID());
-							boots.setSlot(2);
+							boots.setSlot(ItemSlot.FEET);
 
 							WrapperPlayServerEntityEquipment leggings = new WrapperPlayServerEntityEquipment();
 							leggings.setEntityID(packet.getEntityID());
-							leggings.setSlot(3);
+							leggings.setSlot(ItemSlot.LEGS);
 
 							WrapperPlayServerEntityEquipment chestplate = new WrapperPlayServerEntityEquipment();
 							chestplate.setEntityID(packet.getEntityID());
-							chestplate.setSlot(4);
+							chestplate.setSlot(ItemSlot.CHEST);
 
 							WrapperPlayServerEntityEquipment helmet = new WrapperPlayServerEntityEquipment();
 							helmet.setEntityID(packet.getEntityID());
-							helmet.setSlot(5);
+							helmet.setSlot(ItemSlot.HEAD);
 
 							infoPacket.sendPacket(event.getPlayer());
 							spawnPacket.sendPacket(event.getPlayer());
@@ -269,7 +270,7 @@ public class DisguiseAPI {
 
 							WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
 							spawnPacket.setEntityID(packet.getEntityID());
-							spawnPacket.setUUID(packet.getEntityUUID());
+							spawnPacket.setUniqueId(packet.getUniqueId());
 							spawnPacket.setPitch(packet.getHeadPitch());
 							spawnPacket.setYaw(packet.getYaw());
 							spawnPacket.setX(packet.getX());
@@ -284,14 +285,14 @@ public class DisguiseAPI {
 				} else if (event.getPacketType() == ENTITY_METADATA){
 					WrapperPlayServerEntityMetadata packet = new WrapperPlayServerEntityMetadata(event.getPacket());
 
-					if (packet.getEntityId() == event.getPlayer().getEntityId()){
+					if (packet.getEntityID() == event.getPlayer().getEntityId()){
 						return;
 					}
 
-					if (isDisguised(packet.getEntityId())){
-						Disguise dis = getDisguise(packet.getEntityId());
+					if (isDisguised(packet.getEntityID())){
+						Disguise dis = getDisguise(packet.getEntityID());
 
-						int id = packet.getEntityId();
+						int id = packet.getEntityID();
 						Entity e = getEntity(id);
 
 						if (e == null){
@@ -320,7 +321,7 @@ public class DisguiseAPI {
 							watcher.setObject(new WrappedDataWatcherObject(entry.getKey(), serializer), value);
 						}
 
-						packet.setEntityMetadata(watcher.getWatchableObjects());
+						packet.setMetadata(watcher.getWatchableObjects());
 					}
 				} else if (event.getPacketType() == NAMED_ENTITY_SPAWN){
 					WrapperPlayServerNamedEntitySpawn packet = new WrapperPlayServerNamedEntitySpawn(event.getPacket());
@@ -359,7 +360,7 @@ public class DisguiseAPI {
 								WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
 
 								spawnPacket.setEntityID(packet.getEntityID());
-								spawnPacket.setUUID(packet.getPlayerUUID());
+								spawnPacket.setUniqueId(packet.getPlayerUUID());
 								spawnPacket.setX(e.getLocation().getX());
 								spawnPacket.setY(e.getLocation().getY());
 								spawnPacket.setZ(e.getLocation().getZ());
@@ -468,27 +469,27 @@ public class DisguiseAPI {
 
 							WrapperPlayServerEntityEquipment held = new WrapperPlayServerEntityEquipment();
 							held.setEntityID(packet.getEntityID());
-							held.setSlot(0);
+							held.setSlot(ItemSlot.MAINHAND);
 
 							WrapperPlayServerEntityEquipment offhand = new WrapperPlayServerEntityEquipment();
 							offhand.setEntityID(packet.getEntityID());
-							offhand.setSlot(1);
+							offhand.setSlot(ItemSlot.OFFHAND);
 
 							WrapperPlayServerEntityEquipment boots = new WrapperPlayServerEntityEquipment();
 							boots.setEntityID(packet.getEntityID());
-							boots.setSlot(2);
+							boots.setSlot(ItemSlot.FEET);
 
 							WrapperPlayServerEntityEquipment leggings = new WrapperPlayServerEntityEquipment();
 							leggings.setEntityID(packet.getEntityID());
-							leggings.setSlot(3);
+							leggings.setSlot(ItemSlot.LEGS);
 
 							WrapperPlayServerEntityEquipment chestplate = new WrapperPlayServerEntityEquipment();
 							chestplate.setEntityID(packet.getEntityID());
-							chestplate.setSlot(4);
+							chestplate.setSlot(ItemSlot.CHEST);
 
 							WrapperPlayServerEntityEquipment helmet = new WrapperPlayServerEntityEquipment();
 							helmet.setEntityID(packet.getEntityID());
-							helmet.setSlot(5);
+							helmet.setSlot(ItemSlot.HEAD);
 
 							infoPacket.sendPacket(event.getPlayer());
 							spawnPacket.sendPacket(event.getPlayer());
@@ -522,8 +523,8 @@ public class DisguiseAPI {
 						if (getDisguise(id) instanceof DisguiseLivingEntity){
 							DisguiseLivingEntity dis = (DisguiseLivingEntity) getDisguise(id);
 
-							if (dis.getEquipment()[packet.getSlot()] != null){
-								packet.setItem(dis.getEquipment()[packet.getSlot()]);
+							if (dis.getEquipment()[packet.getSlot().ordinal()] != null){
+								packet.setItem(dis.getEquipment()[packet.getSlot().ordinal()]);
 							} else {
 								event.setCancelled(true);
 							}
@@ -615,34 +616,34 @@ public class DisguiseAPI {
 		disguises.put(entityID, disguise);
 
 		WrapperPlayServerEntityDestroy packet = new WrapperPlayServerEntityDestroy();
-		packet.setEntities(new int[]{entityID});
+		packet.setEntityIds(new int[]{entityID});
 
 		WrapperPlayServerEntityMetadata metaPacket = new WrapperPlayServerEntityMetadata();
-		metaPacket.setEntityId(entityID);
+		metaPacket.setEntityID(entityID);
 
 		WrapperPlayServerEntityEquipment held = new WrapperPlayServerEntityEquipment();
 		held.setEntityID(entityID);
-		held.setSlot(0);
+		held.setSlot(ItemSlot.MAINHAND);
 
 		WrapperPlayServerEntityEquipment offhand = new WrapperPlayServerEntityEquipment();
 		offhand.setEntityID(entityID);
-		offhand.setSlot(1);
+		offhand.setSlot(ItemSlot.OFFHAND);
 
 		WrapperPlayServerEntityEquipment boots = new WrapperPlayServerEntityEquipment();
 		boots.setEntityID(entityID);
-		boots.setSlot(2);
+		boots.setSlot(ItemSlot.FEET);
 
 		WrapperPlayServerEntityEquipment leggings = new WrapperPlayServerEntityEquipment();
 		leggings.setEntityID(entityID);
-		leggings.setSlot(3);
+		leggings.setSlot(ItemSlot.LEGS);
 
 		WrapperPlayServerEntityEquipment chestplate = new WrapperPlayServerEntityEquipment();
 		chestplate.setEntityID(entityID);
-		chestplate.setSlot(4);
+		chestplate.setSlot(ItemSlot.CHEST);
 
 		WrapperPlayServerEntityEquipment helmet = new WrapperPlayServerEntityEquipment();
 		helmet.setEntityID(entityID);
-		helmet.setSlot(5);
+		helmet.setSlot(ItemSlot.HEAD);
 
 		WrapperPlayServerEntityHeadRotation headPacket = new WrapperPlayServerEntityHeadRotation();
 		headPacket.setEntityID(entityID);
@@ -656,7 +657,7 @@ public class DisguiseAPI {
 			spawnPacket.setZ(e.getLocation().getZ());
 			spawnPacket.setHeadPitch(e.getLocation().getPitch());
 			spawnPacket.setYaw(e.getLocation().getYaw());
-			spawnPacket.setEntityUUID(e.getUniqueId());
+			spawnPacket.setUniqueId(e.getUniqueId());
 
 			for (Player p : Bukkit.getOnlinePlayers()){
 				if (p.getEntityId() != entityID){
@@ -726,7 +727,7 @@ public class DisguiseAPI {
 		} else {
 			WrapperPlayServerSpawnEntity spawnPacket = new WrapperPlayServerSpawnEntity();
 			spawnPacket.setEntityID(entityID);
-			spawnPacket.setUUID(e.getUniqueId());
+			spawnPacket.setUniqueId(e.getUniqueId());
 			spawnPacket.setPitch(e.getLocation().getPitch());
 			spawnPacket.setYaw(e.getLocation().getYaw());
 			spawnPacket.setX(e.getLocation().getX());
@@ -745,34 +746,34 @@ public class DisguiseAPI {
 
 	public static void update(int entityID){
 		WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
-		meta.setEntityId(entityID);
+		meta.setEntityID(entityID);
 
 		WrapperPlayServerEntityMetadata metaPacket = new WrapperPlayServerEntityMetadata();
-		metaPacket.setEntityId(entityID);
+		metaPacket.setEntityID(entityID);
 
 		WrapperPlayServerEntityEquipment held = new WrapperPlayServerEntityEquipment();
 		held.setEntityID(entityID);
-		held.setSlot(0);
+		held.setSlot(ItemSlot.MAINHAND);
 
 		WrapperPlayServerEntityEquipment offhand = new WrapperPlayServerEntityEquipment();
 		offhand.setEntityID(entityID);
-		offhand.setSlot(1);
+		offhand.setSlot(ItemSlot.OFFHAND);
 
 		WrapperPlayServerEntityEquipment boots = new WrapperPlayServerEntityEquipment();
 		boots.setEntityID(entityID);
-		boots.setSlot(2);
+		boots.setSlot(ItemSlot.FEET);
 
 		WrapperPlayServerEntityEquipment leggings = new WrapperPlayServerEntityEquipment();
 		leggings.setEntityID(entityID);
-		leggings.setSlot(3);
+		leggings.setSlot(ItemSlot.LEGS);
 
 		WrapperPlayServerEntityEquipment chestplate = new WrapperPlayServerEntityEquipment();
 		chestplate.setEntityID(entityID);
-		chestplate.setSlot(4);
+		chestplate.setSlot(ItemSlot.CHEST);
 
 		WrapperPlayServerEntityEquipment helmet = new WrapperPlayServerEntityEquipment();
 		helmet.setEntityID(entityID);
-		helmet.setSlot(5);
+		helmet.setSlot(ItemSlot.HEAD);
 
 		WrapperPlayServerEntityHeadRotation headPacket = new WrapperPlayServerEntityHeadRotation();
 		headPacket.setEntityID(entityID);
