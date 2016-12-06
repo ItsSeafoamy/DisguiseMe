@@ -49,7 +49,7 @@ public class SkinData {
 	}
 	
 	public String toID(){
-		return texture.replaceAll("(.)", "ยง$1");
+		return texture.replaceAll("(.)", "ง$1");
 	}
 	
 	public static SkinData fromJSON(JSONObject json){

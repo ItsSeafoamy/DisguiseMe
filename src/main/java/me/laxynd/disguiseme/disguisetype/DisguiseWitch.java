@@ -11,7 +11,7 @@ public class DisguiseWitch extends DisguiseMonster {
 	public DisguiseWitch(){
 		super();
 		
-		dataTypes.put(11, BOOLEAN);
+		dataTypes.put(12, BOOLEAN);
 	}
 	
 	@Override
@@ -33,10 +33,10 @@ public class DisguiseWitch extends DisguiseMonster {
 	}
 	
 	public boolean isAgressive(){
-		return getBoolean(11);
+		return getBoolean(12);
 	}
 	
 	public void setAgressive(boolean agressive){
-		set(11, agressive);
+		set(12, agressive);
 	}
 }

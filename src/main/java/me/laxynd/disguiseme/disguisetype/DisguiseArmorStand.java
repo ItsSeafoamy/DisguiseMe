@@ -13,13 +13,13 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	public DisguiseArmorStand(){
 		super();
 		
-		dataTypes.put(10, BYTE);
-		dataTypes.put(11, VECTOR3F);
+		dataTypes.put(11, BYTE);
 		dataTypes.put(12, VECTOR3F);
 		dataTypes.put(13, VECTOR3F);
 		dataTypes.put(14, VECTOR3F);
 		dataTypes.put(15, VECTOR3F);
 		dataTypes.put(16, VECTOR3F);
+		dataTypes.put(17, VECTOR3F);
 	}
 
 	@Override
@@ -51,51 +51,53 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	}
 	
 	public boolean isSmall(){
-		return getBitMask(10, 0x01);
+		return getBitMask(11, 0x01);
 	}
 	
 	public void setSmall(boolean small){
-		setBitMask(10, 0x01, small);
+		setBitMask(11, 0x01, small);
 	}
 	
+	@Deprecated
 	public boolean hasGravity(){
-		return getBitMask(10, 0x02);
+		return !hasNoGravity();
 	}
 	
+	@Deprecated
 	public void setGravity(boolean gravity){
-		setBitMask(10, 0x02, gravity);
+		setNoGravity(!gravity);
 	}
 	
 	public boolean hasArms(){
-		return getBitMask(10, 0x04);
+		return getBitMask(11, 0x04);
 	}
 	
 	public void setArms(boolean arms){
-		setBitMask(10, 0x04, arms);
+		setBitMask(11, 0x04, arms);
 	}
 	
 	public boolean hasNoBasePlate(){
-		return getBitMask(10, 0x08);
+		return getBitMask(11, 0x08);
 	}
 	
 	public void setNoBasePlate(boolean noBasePlate){
-		setBitMask(10, 0x08, noBasePlate);
+		setBitMask(11, 0x08, noBasePlate);
 	}
 	
 	public boolean isMarker(){
-		return getBitMask(10, 0x10);
+		return getBitMask(11, 0x10);
 	}
 	
 	public void setMarker(boolean marker){
-		setBitMask(10, 0x10, marker);
+		setBitMask(11, 0x10, marker);
 	}
 	
 	public float[] getHeadRotation(){
-		return getVector3F(11);
+		return getVector3F(12);
 	}
 	
 	public void setHeadRotation(float[] headRotation){
-		set(11, headRotation);
+		set(12, headRotation);
 	}
 	
 	public void setHeadRotation(EulerAngle angle){
@@ -103,11 +105,11 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	}
 	
 	public float[] getBodyRotation(){
-		return getVector3F(12);
+		return getVector3F(13);
 	}
 	
 	public void setBodyRotation(float[] bodyRotation){
-		set(12, bodyRotation);
+		set(13, bodyRotation);
 	}
 	
 	public void setBodyRotation(EulerAngle angle){
@@ -115,11 +117,11 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	}
 	
 	public float[] getLeftArmRotation(){
-		return getVector3F(13);
+		return getVector3F(14);
 	}
 	
 	public void setLeftArmRotation(float[] leftArmRotation){
-		set(13, leftArmRotation);
+		set(14, leftArmRotation);
 	}
 	
 	public void setLeftArmRotation(EulerAngle angle){
@@ -127,11 +129,11 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	}
 	
 	public float[] getRightArmRotation(){
-		return getVector3F(14);
+		return getVector3F(15);
 	}
 	
 	public void setRightArmRotation(float[] rightArmRotation){
-		set(14, rightArmRotation);
+		set(15, rightArmRotation);
 	}
 	
 	public void setRightArmRotation(EulerAngle angle){
@@ -139,11 +141,11 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	}
 	
 	public float[] getLeftLegRotation(){
-		return getVector3F(15);
+		return getVector3F(16);
 	}
 	
 	public void setLeftLegRotation(float[] leftLegRotation){
-		set(15, leftLegRotation);
+		set(16, leftLegRotation);
 	}
 	
 	public void setLeftLegRotation(EulerAngle angle){
@@ -151,11 +153,11 @@ public class DisguiseArmorStand extends DisguiseLivingEntity {
 	}
 	
 	public float[] getRightLegRotation(){
-		return getVector3F(16);
+		return getVector3F(17);
 	}
 	
 	public void setRightLegRotation(float[] rightLegRotation){
-		set(16, rightLegRotation);
+		set(17, rightLegRotation);
 	}
 	
 	public void setRightLegRotation(EulerAngle angle){

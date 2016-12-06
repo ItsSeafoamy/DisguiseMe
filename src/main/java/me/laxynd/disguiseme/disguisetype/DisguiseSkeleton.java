@@ -1,22 +1,19 @@
 package me.laxynd.disguiseme.disguisetype;
 
-import static me.laxynd.disguiseme.DataType.BOOLEAN;
-import static me.laxynd.disguiseme.DataType.VARINT;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Skeleton;
 
-public class DisguiseSkeleton extends DisguiseMonster {
+public class DisguiseSkeleton extends DisguiseAbstractSkeleton {
 	
+	@Deprecated
 	public static final int NORMAL = 0;
+	@Deprecated
 	public static final int WITHER = 1;
 	
 	public DisguiseSkeleton(){
 		super();
-		
-		dataTypes.put(11, VARINT);
-		dataTypes.put(12, BOOLEAN);
 	}
 	
 	@Override
@@ -24,8 +21,6 @@ public class DisguiseSkeleton extends DisguiseMonster {
 		super.from(e);
 		
 		if (e instanceof Skeleton){
-			Skeleton s = (Skeleton) e;
-			setType(s.getSkeletonType() == Skeleton.SkeletonType.WITHER ? 1 : 0);
 		} else throw new IllegalArgumentException();
 	}
 	
@@ -39,11 +34,11 @@ public class DisguiseSkeleton extends DisguiseMonster {
 		return Sound.ENTITY_SKELETON_AMBIENT;
 	}
 	
+	@Deprecated
 	public int getType(){
-		return getInteger(11);
+		return -1;
 	}
 	
-	public void setType(int type){
-		set(11, type);
-	}
+	@Deprecated
+	public void setType(int type){}
 }

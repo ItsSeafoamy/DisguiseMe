@@ -42,6 +42,7 @@ public abstract class Disguise {
 		dataTypes.put(2, STRING);
 		dataTypes.put(3, BOOLEAN);
 		dataTypes.put(4, BOOLEAN);
+		dataTypes.put(5, BOOLEAN);
 	}
 
 	public void solveConflicts(Disguise other){
@@ -332,5 +333,13 @@ public abstract class Disguise {
 
 	public void setSilent(boolean silent){
 		set(4, silent);
+	}
+	
+	public boolean hasNoGravity(){
+		return getBoolean(5);
+	}
+	
+	public void setNoGravity(boolean noGravity){
+		set(5, noGravity);
 	}
 }

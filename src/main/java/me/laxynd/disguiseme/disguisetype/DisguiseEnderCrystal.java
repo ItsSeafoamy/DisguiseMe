@@ -11,8 +11,8 @@ public class DisguiseEnderCrystal extends Disguise {
 	public DisguiseEnderCrystal(){
 		super();
 		
-		dataTypes.put(5, OPT_POSITION);
-		dataTypes.put(6, BOOLEAN);
+		dataTypes.put(6, OPT_POSITION);
+		dataTypes.put(7, BOOLEAN);
 	}
 
 	@Override
@@ -29,10 +29,10 @@ public class DisguiseEnderCrystal extends Disguise {
 	public void from(Entity e) {}
 	
 	public boolean showingBottom(){
-		return getBoolean(6);
+		return getBoolean(7);
 	}
 	
 	public void showBottom(boolean showBottom){
-		set(6, showBottom);
+		set(7, showBottom);
 	}
 }

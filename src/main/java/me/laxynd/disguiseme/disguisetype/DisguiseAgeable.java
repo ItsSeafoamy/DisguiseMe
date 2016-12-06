@@ -9,7 +9,7 @@ public abstract class DisguiseAgeable extends DisguiseCreature {
 	public DisguiseAgeable(){
 		super();
 		
-		dataTypes.put(11, BOOLEAN);
+		dataTypes.put(12, BOOLEAN);
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public abstract class DisguiseAgeable extends DisguiseCreature {
 	 * @return If this disguise represents a child
 	 */
 	public boolean isChild(){
-		return getBoolean(11);
+		return getBoolean(12);
 	}
 	
 	/**
@@ -36,6 +36,6 @@ public abstract class DisguiseAgeable extends DisguiseCreature {
 	 * @param child - If true, this disguise will be of a child, otherwise it will be of an adult
 	 */
 	public void setChild(boolean child){
-		set(11, child);
+		set(12, child);
 	}
 }

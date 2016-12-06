@@ -11,7 +11,7 @@ public class DisguiseIronGolem extends DisguiseLivingEntity {
 	public DisguiseIronGolem(){
 		super();
 		
-		dataTypes.put(11, BYTE);
+		dataTypes.put(12, BYTE);
 	}
 	
 	@Override
@@ -31,14 +31,14 @@ public class DisguiseIronGolem extends DisguiseLivingEntity {
 	
 	@Override
 	public Sound getSound(){
-		return null;
+		return Sound.ENTITY_IRONGOLEM_ATTACK;
 	}
 	
 	public boolean isPlayerCreated(){
-		return getBitMask(11, 0x01);
+		return getBitMask(12, 0x01);
 	}
 	
 	public void setPlayerCreated(boolean playerCreated){
-		setBitMask(11, 0x01, playerCreated);
+		setBitMask(12, 0x01, playerCreated);
 	}
 }

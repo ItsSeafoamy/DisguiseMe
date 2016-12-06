@@ -11,7 +11,7 @@ public class DisguiseSpider extends DisguiseMonster {
 	public DisguiseSpider(){
 		super();
 		
-		dataTypes.put(11, BYTE);
+		dataTypes.put(12, BYTE);
 	}
 	
 	@Override
@@ -33,10 +33,10 @@ public class DisguiseSpider extends DisguiseMonster {
 	}
 	
 	public boolean isClimbing(){
-		return getBitMask(11, 0x01);
+		return getBitMask(12, 0x01);
 	}
 	
 	public void setClimbing(boolean climbing){
-		setBitMask(11, 0x01, climbing);
+		setBitMask(12, 0x01, climbing);
 	}
 }

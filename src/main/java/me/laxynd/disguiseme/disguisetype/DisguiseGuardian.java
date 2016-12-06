@@ -1,6 +1,6 @@
 package me.laxynd.disguiseme.disguisetype;
 
-import static me.laxynd.disguiseme.DataType.BYTE;
+import static me.laxynd.disguiseme.DataType.BOOLEAN;
 import static me.laxynd.disguiseme.DataType.VARINT;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -12,8 +12,8 @@ public class DisguiseGuardian extends DisguiseMonster {
 	public DisguiseGuardian(){
 		super();
 		
-		dataTypes.put(16, BYTE);
-		dataTypes.put(17, VARINT);
+		dataTypes.put(12, BOOLEAN);
+		dataTypes.put(13, VARINT);
 	}
 	
 	@Override
@@ -21,8 +21,6 @@ public class DisguiseGuardian extends DisguiseMonster {
 		super.from(e);
 		
 		if (e instanceof Guardian){
-			Guardian g = (Guardian) e;
-			setElder(g.isElder());
 		} else throw new IllegalArgumentException();
 	}
 
@@ -41,26 +39,24 @@ public class DisguiseGuardian extends DisguiseMonster {
 	}
 	
 	public boolean isRetractingSpikes(){
-		return getBitMask(11, 0x02);
+		return getBoolean(12);
 	}
 	
 	public void setRetractingSpikes(boolean retractingSpikes){
-		setBitMask(11, 0x02, retractingSpikes);
+		set(12, retractingSpikes);
 	}
 	
-	public boolean isElder(){
-		return getBitMask(11, 0x04);
-	}
+	@Deprecated
+	public boolean isElder(){return false;}
 	
-	public void setElder(boolean elder){
-		setBitMask(11, 0x04, elder);
-	}
+	@Deprecated
+	public void setElder(boolean elder){}
 	
 	public int getTarget(){
-		return getInteger(12);
+		return getInteger(13);
 	}
 	
 	public void setTarget(int target){
-		set(12, target);
+		set(13, target);
 	}
 }

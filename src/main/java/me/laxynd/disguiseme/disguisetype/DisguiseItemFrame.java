@@ -12,8 +12,8 @@ public class DisguiseItemFrame extends DisguiseHanging {
 	public DisguiseItemFrame(){
 		super();
 		
-		dataTypes.put(5, SLOT);
-		dataTypes.put(6, VARINT);
+		dataTypes.put(6, SLOT);
+		dataTypes.put(7, VARINT);
 	}
 
 	@Override
@@ -34,10 +34,10 @@ public class DisguiseItemFrame extends DisguiseHanging {
 	}
 	
 	public int getRotation(){
-		return getInteger(6);
+		return getInteger(7);
 	}
 	
 	public void setRotation(int rotation){
-		set(6, rotation);
+		set(7, rotation);
 	}
 }

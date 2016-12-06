@@ -13,9 +13,9 @@ public class DisguiseWolf extends DisguiseTameable {
 	public DisguiseWolf(){
 		super();
 		
-		dataTypes.put(14, FLOAT);
-		dataTypes.put(15, BOOLEAN);
-		dataTypes.put(16, VARINT);
+		dataTypes.put(15, FLOAT);
+		dataTypes.put(16, BOOLEAN);
+		dataTypes.put(17, VARINT);
 	}
 	
 	@Override
@@ -41,26 +41,26 @@ public class DisguiseWolf extends DisguiseTameable {
 	}
 	
 	public float getDamageTaken(){
-		return getFloat(14);
+		return getFloat(15);
 	}
 	
 	public void setDamageTaken(float damageTaken){
-		set(14, damageTaken);
+		set(15, damageTaken);
 	}
 	
 	public boolean isBegging(){
-		return getBoolean(15);
+		return getBoolean(16);
 	}
 	
 	public void setBegging(boolean begging){
-		set(15, begging);
+		set(16, begging);
 	}
 	
 	public int getCollarColor(){
-		return getByte(15);
+		return getByte(17);
 	}
 	
 	public void setCollarColor(int collarColor){
-		set(15, collarColor);
+		set(17, collarColor);
 	}
 }

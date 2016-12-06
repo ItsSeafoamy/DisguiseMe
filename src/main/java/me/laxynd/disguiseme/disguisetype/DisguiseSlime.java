@@ -11,7 +11,7 @@ public class DisguiseSlime extends DisguiseFlying {
 	public DisguiseSlime(){
 		super();
 		
-		dataTypes.put(11, VARINT);
+		dataTypes.put(12, VARINT);
 	}
 	
 	@Override
@@ -39,6 +39,6 @@ public class DisguiseSlime extends DisguiseFlying {
 	}
 	
 	public void setSize(int size){
-		set(11, size);
+		set(12, size);
 	}
 }

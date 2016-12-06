@@ -611,6 +611,8 @@ public class DisguiseAPI {
 
 		if (e == null){
 			return;
+		} else if (disguise instanceof DisguisePlayer){
+			return;
 		}
 
 		disguises.put(entityID, disguise);

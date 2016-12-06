@@ -10,8 +10,8 @@ public abstract class DisguiseTameable extends DisguiseAnimal {
 	public DisguiseTameable(){
 		super();
 		
-		dataTypes.put(12, BYTE);
-		dataTypes.put(13, OPT_UUID);
+		dataTypes.put(13, BYTE);
+		dataTypes.put(14, OPT_UUID);
 	}
 	
 	@Override
@@ -25,18 +25,26 @@ public abstract class DisguiseTameable extends DisguiseAnimal {
 	}
 	
 	public boolean isSitting(){
-		return getBitMask(12, 0x01);
+		return getBitMask(13, 0x01);
 	}
 	
 	public void setSitting(boolean sitting){
-		setBitMask(12, 0x01, sitting);
+		setBitMask(13, 0x01, sitting);
+	}
+	
+	public boolean isAngry(){
+		return getBitMask(13, 0x02);
+	}
+	
+	public void setAngry(boolean angry){
+		setBitMask(13, 0x02, angry);
 	}
 	
 	public boolean isTamed(){
-		return getBitMask(12, 0x04);
+		return getBitMask(13, 0x04);
 	}
 	
 	public void setTamed(boolean tamed){
-		setBitMask(12, 0x04, tamed);
+		setBitMask(13, 0x04, tamed);
 	}
 }

@@ -46,10 +46,10 @@ public class DisguisePlayer extends DisguiseLivingEntity {
 	public DisguisePlayer(String playerName, UUID uuid, SkinData skin){
 		super();
 		
-		dataTypes.put(10, FLOAT);
-		dataTypes.put(11, VARINT);
-		dataTypes.put(12, BYTE);
+		dataTypes.put(11, FLOAT);
+		dataTypes.put(12, VARINT);
 		dataTypes.put(13, BYTE);
+		dataTypes.put(14, BYTE);
 		
 		this.playerName = playerName;
 		this.uuid = uuid;
@@ -79,27 +79,27 @@ public class DisguisePlayer extends DisguiseLivingEntity {
 	}
 	
 	public float getAdditionalHearts(){
-		return getFloat(10);
+		return getFloat(11);
 	}
 	
 	public void setAdditionalHearts(float additionalHearts){
-		set(10, additionalHearts);
+		set(11, additionalHearts);
 	}
 	
 	public int getScore(){
-		return getInteger(11);
+		return getInteger(12);
 	}
 	
 	public void setScore(int score){
-		set(11, score);
+		set(12, score);
 	}
 	
 	public byte getSkinFlags(){
-		return getByte(12);
+		return getByte(13);
 	}
 	
 	public void setSkinFlags(byte skinFlags){
-		set(12, skinFlags);
+		set(13, skinFlags);
 	}
 	
 	public byte getMainHand(){

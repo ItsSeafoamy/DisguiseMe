@@ -11,7 +11,7 @@ public class DisguiseGhast extends DisguiseFlying{
 	public DisguiseGhast(){
 		super();
 		
-		dataTypes.put(11, BOOLEAN);
+		dataTypes.put(12, BOOLEAN);
 	}
 	
 	@Override
@@ -33,10 +33,10 @@ public class DisguiseGhast extends DisguiseFlying{
 	}
 	
 	public boolean isAttacking(){
-		return getBoolean(11);
+		return getBoolean(12);
 	}
 	
 	public void setAttacking(boolean attacking){
-		set(11, attacking);
+		set(12, attacking);
 	}
 }

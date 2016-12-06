@@ -15,9 +15,9 @@ public class DisguiseCreeper extends DisguiseMonster {
 	public DisguiseCreeper(){
 		super();
 		
-		dataTypes.put(11, VARINT);
-		dataTypes.put(12, BOOLEAN);
+		dataTypes.put(12, VARINT);
 		dataTypes.put(13, BOOLEAN);
+		dataTypes.put(14, BOOLEAN);
 	}
 	
 	@Override
@@ -41,26 +41,26 @@ public class DisguiseCreeper extends DisguiseMonster {
 	}
 	
 	public int getState(){
-		return getInteger(11);
+		return getInteger(12);
 	}
 	
 	public void setState(int state){
-		set(11, state);
+		set(12, state);
 	}
 	
 	public boolean isCharged(){
-		return getBoolean(12);
-	}
-	
-	public void setCharged(boolean charged){
-		set(12, charged);
-	}
-	
-	public boolean isIgnited(){
 		return getBoolean(13);
 	}
 	
+	public void setCharged(boolean charged){
+		set(13, charged);
+	}
+	
+	public boolean isIgnited(){
+		return getBoolean(14);
+	}
+	
 	public void setIgnited(boolean ignited){
-		set(13, ignited);
+		set(14, ignited);
 	}
 }

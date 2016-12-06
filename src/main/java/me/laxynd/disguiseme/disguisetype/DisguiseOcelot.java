@@ -8,10 +8,16 @@ import org.bukkit.entity.Ocelot;
 
 public class DisguiseOcelot extends DisguiseTameable {
 	
+	public static final int TYPE_UNTAMED = 0;
+	public static final int TYPE_TUXEDO = 1;
+	public static final int TYPE_TABBY = 2;
+	public static final int TYPE_SIAMESE = 3;
+
+	
 	public DisguiseOcelot(){
 		super();
 		
-		dataTypes.put(14, VARINT);
+		dataTypes.put(15, VARINT);
 	}
 	
 	@Override
@@ -35,10 +41,10 @@ public class DisguiseOcelot extends DisguiseTameable {
 	}
 	
 	public int getType(){
-		return getInteger(14);
+		return getInteger(15);
 	}
 	
 	public void setType(int type){
-		set(14, type);
+		set(15, type);
 	}
 }

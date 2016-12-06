@@ -14,8 +14,8 @@ public class DisguiseEnderman extends DisguiseMonster {
 	public DisguiseEnderman(){
 		super();
 		
-		dataTypes.put(11, BLOCK_ID);
-		dataTypes.put(12, BOOLEAN);
+		dataTypes.put(12, BLOCK_ID);
+		dataTypes.put(13, BOOLEAN);
 	}
 	
 	@Override
@@ -40,22 +40,22 @@ public class DisguiseEnderman extends DisguiseMonster {
 	
 	@SuppressWarnings("deprecation")
 	public ItemStack getCarriedBlock(){
-		int id = getInteger(11) >> 4;
-		int data = getInteger(11) & 0xF;
+		int id = getInteger(12) >> 4;
+		int data = getInteger(12) & 0xF;
 		
 		return new ItemStack(Bukkit.getUnsafe().getMaterialFromInternalName(Integer.toString(id)), 1, (short) data);
 	}
 	
 	@SuppressWarnings("deprecation")
 	public void setCarriedBlock(ItemStack carriedBlock){
-		set(11, carriedBlock.getTypeId() << 4 | carriedBlock.getDurability());
+		set(12, carriedBlock.getTypeId() << 4 | carriedBlock.getDurability());
 	}
 	
 	public boolean isScreaming(){
-		return getBoolean(12);
+		return getBoolean(13);
 	}
 	
 	public void setScreaming(boolean screaming){
-		set(12, screaming);
+		set(13, screaming);
 	}
 }

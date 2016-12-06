@@ -10,7 +10,7 @@ public class DisguiseItem extends Disguise {
 	public DisguiseItem(){
 		super();
 		
-		dataTypes.put(5, SLOT);
+		dataTypes.put(6, SLOT);
 	}
 
 	@Override

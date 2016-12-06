@@ -9,7 +9,7 @@ public class DisguiseTippedArrow extends DisguiseArrow {
 	public DisguiseTippedArrow(){
 		super();
 		
-		dataTypes.put(6, VARINT);
+		dataTypes.put(7, VARINT);
 	}
 	
 	@Override
@@ -23,10 +23,10 @@ public class DisguiseTippedArrow extends DisguiseArrow {
 	}
 
 	public int getColor(){
-		return getInteger(6);
+		return getInteger(7);
 	}
 	
 	public void setColor(int color){
-		set(6, color);
+		set(7, color);
 	}
 }

@@ -13,10 +13,12 @@ public class DisguiseAreaEffectCloud extends Disguise {
 	public DisguiseAreaEffectCloud(){
 		super();
 		
-		dataTypes.put(5, FLOAT);
-		dataTypes.put(6, VARINT);
-		dataTypes.put(7, BOOLEAN);
-		dataTypes.put(8, VARINT);
+		dataTypes.put(6, FLOAT);
+		dataTypes.put(7, VARINT);
+		dataTypes.put(8, BOOLEAN);
+		dataTypes.put(9, VARINT);
+		dataTypes.put(10, VARINT);
+		dataTypes.put(11,  VARINT);
 	}
 
 	@Override
@@ -41,34 +43,50 @@ public class DisguiseAreaEffectCloud extends Disguise {
 	}
 	
 	public float getRadius(){
-		return getFloat(5);
+		return getFloat(6);
 	}
 	
 	public void setRadius(float radius){
-		set(5, radius);
+		set(6, radius);
 	}
 	
 	public int getColor(){
-		return getInteger(6);
+		return getInteger(7);
 	}
 	
 	public void setColor(int color){
-		set(6, color);
+		set(7, color);
 	}
 	
 	public boolean isSinglePoint(){
-		return getBoolean(7);
+		return getBoolean(8);
 	}
 	
 	public void setSinglePoint(boolean singlePoint){
-		set(7, singlePoint);
+		set(8, singlePoint);
 	}
 	
 	public int getParticleId(){
-		return getInteger(8);
+		return getInteger(9);
 	}
 	
 	public void setParticleId(int particleId){
-		set(8, particleId);
+		set(9, particleId);
+	}
+	
+	public int getParticleParameter1(){
+		return getInteger(10);
+	}
+	
+	public void setParticleParameter1(int particleParameter1){
+		set(10, particleParameter1);
+	}
+	
+	public int getParticleParameter2(){
+		return getInteger(11);
+	}
+	
+	public void setParticleParameter2(int particleParameter2){
+		set(11, particleParameter2);
 	}
 }

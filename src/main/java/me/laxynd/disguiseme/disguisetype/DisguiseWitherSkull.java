@@ -9,7 +9,7 @@ public class DisguiseWitherSkull extends DisguiseFireball {
 	public DisguiseWitherSkull(){
 		super();
 		
-		dataTypes.put(5, BOOLEAN);
+		dataTypes.put(6, BOOLEAN);
 	}
 	
 	@Override
@@ -21,10 +21,10 @@ public class DisguiseWitherSkull extends DisguiseFireball {
 	public void from(Entity e){}
 	
 	public boolean isInvulnerable(){
-		return getBoolean(5);
+		return getBoolean(6);
 	}
 	
 	public void setInvulnerable(boolean invulnerable){
-		set(5, invulnerable);
+		set(6, invulnerable);
 	}
 }

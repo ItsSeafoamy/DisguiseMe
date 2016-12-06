@@ -10,7 +10,7 @@ public class DisguiseFirework extends Disguise {
 	public DisguiseFirework(){
 		super();
 		
-		dataTypes.put(5, SLOT);
+		dataTypes.put(6, SLOT);
 	}
 
 	@Override

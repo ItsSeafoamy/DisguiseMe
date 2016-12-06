@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class DisguiseLivingEntity extends Disguise {
 	
+	public static final boolean MAIN_HAND = false;
+	public static final boolean OFF_HAND = true;
+	
 	private ItemStack held, offhand, boots, leggings, chestplate, helmet;
 	private byte yaw;
 	private boolean customYaw;
@@ -17,11 +20,11 @@ public abstract class DisguiseLivingEntity extends Disguise {
 	public DisguiseLivingEntity(){
 		super();
 		
-		dataTypes.put(5, BYTE);
-		dataTypes.put(6, FLOAT);
-		dataTypes.put(7, VARINT);
-		dataTypes.put(8, BOOLEAN);
-		dataTypes.put(9, VARINT);
+		dataTypes.put(6, BYTE);
+		dataTypes.put(7, FLOAT);
+		dataTypes.put(8, VARINT);
+		dataTypes.put(9, BOOLEAN);
+		dataTypes.put(10, VARINT);
 		
 		set(6, 20f);
 	}
@@ -36,36 +39,52 @@ public abstract class DisguiseLivingEntity extends Disguise {
 		}
 	}
 	
+	public boolean isHandActive(){
+		return getBitMask(6, 0x01);
+	}
+	
+	public void setHandActive(boolean handActive){
+		setBitMask(6, 0x01, handActive);
+	}
+	
+	public boolean getActiveHand(){
+		return getBitMask(6, 0x02);
+	}
+	
+	public void setActiveHand(boolean activeHand){
+		setBitMask(6, 0x01, activeHand);
+	}
+	
 	public float getHealth(){
-		return getFloat(6);
+		return getFloat(7);
 	}
 	
 	public void setHealth(float health){
-		set(6, health);
+		set(7, health);
 	}
 	
 	public int getPotionEffectColor(){
-		return getInteger(7);
+		return getInteger(8);
 	}
 	
 	public void setPotionEffectColor(int potionEffectColor){
-		set(7, potionEffectColor);
+		set(8, potionEffectColor);
 	}
 	
 	public boolean isPotionEffectAmbient(){
-		return getBoolean(8);
+		return getBoolean(9);
 	}
 	
 	public void setPotionEffectAmbient(boolean potionEffectAmbient){
-		set(8, potionEffectAmbient);
+		set(9, potionEffectAmbient);
 	}
 	
 	public int getNumberOfArrowsInEntity(){
-		return getInteger(9);
+		return getInteger(10);
 	}
 	
 	public void setNumberOfArrowsInEntity(int numberOfArrowsInEntity){
-		set(9, numberOfArrowsInEntity);
+		set(10, numberOfArrowsInEntity);
 	}
 	
 	public ItemStack getHeldItem(){

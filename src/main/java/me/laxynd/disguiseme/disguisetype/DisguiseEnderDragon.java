@@ -9,7 +9,7 @@ public class DisguiseEnderDragon extends DisguiseInsentient {
 	public DisguiseEnderDragon(){
 		super();
 		
-		dataTypes.put(11, VARINT);
+		dataTypes.put(12, VARINT);
 	}
 
 	@Override
@@ -23,10 +23,10 @@ public class DisguiseEnderDragon extends DisguiseInsentient {
 	}
 	
 	public int getDragonPhase(){
-		return getInteger(11);
+		return getInteger(12);
 	}
 	
 	public void setDragonPhase(int dragonPhase){
-		set(11, dragonPhase);
+		set(12, dragonPhase);
 	}
 }

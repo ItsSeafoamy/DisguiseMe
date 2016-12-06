@@ -11,7 +11,7 @@ public class DisguiseArrow extends Disguise {
 	public DisguiseArrow(){
 		super();
 		
-		dataTypes.put(5, BYTE);
+		dataTypes.put(6, BYTE);
 	}
 
 	@Override
@@ -33,10 +33,10 @@ public class DisguiseArrow extends Disguise {
 	}
 	
 	public boolean isCritical(){
-		return getByte(5) != 0;
+		return getByte(6) != 0;
 	}
 	
 	public void setCritical(boolean critical){
-		set(5, critical ? (byte) 1 : (byte) 0);
+		set(6, critical ? (byte) 1 : (byte) 0);
 	}
 }

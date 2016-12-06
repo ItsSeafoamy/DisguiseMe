@@ -11,7 +11,7 @@ public class DisguisePig extends DisguiseAnimal {
 	public DisguisePig(){
 		super();
 		
-		dataTypes.put(12, BOOLEAN);
+		dataTypes.put(13, BOOLEAN);
 	}
 	
 	@Override
@@ -35,10 +35,10 @@ public class DisguisePig extends DisguiseAnimal {
 	}
 	
 	public boolean hasSaddle(){
-		return getBoolean(16);
+		return getBoolean(13);
 	}
 	
 	public void setSaddle(boolean saddle){
-		set(16, saddle);
+		set(13, saddle);
 	}
 }

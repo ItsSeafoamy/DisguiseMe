@@ -11,7 +11,7 @@ public class DisguiseBlaze extends DisguiseMonster {
 	public DisguiseBlaze(){
 		super();
 		
-		dataTypes.put(11, BYTE);
+		dataTypes.put(12, BYTE);
 	}
 	
 	@Override
@@ -35,10 +35,10 @@ public class DisguiseBlaze extends DisguiseMonster {
 	}
 	
 	public boolean isOnFire(){
-		return getBitMask(11, 0x01);
+		return getBitMask(12, 0x01);
 	}
 	
 	public void setOnFire(boolean onFire){
-		setBitMask(11, 0x01, onFire);
+		setBitMask(12, 0x01, onFire);
 	}
 }

@@ -11,7 +11,7 @@ public class DisguiseSheep extends DisguiseAnimal {
 	public DisguiseSheep(){
 		super();
 		
-		dataTypes.put(12, BYTE);
+		dataTypes.put(13, BYTE);
 	}
 	
 	@Override
@@ -36,22 +36,18 @@ public class DisguiseSheep extends DisguiseAnimal {
 	}
 	
 	public byte getColor(){
-		return (byte) (getByte(12) & 0x0F);
+		return (byte) (getByte(13) & 0x0F);
 	}
 	
 	public void setColor(byte color){
-		set(16, (byte) ((getByte(12) & 0x10) + color));
+		set(16, (byte) ((getByte(13) & 0x10) + color));
 	}
 	
 	public boolean isSheared(){
-		return (getByte(12) & 0x10) == 1;
+		return getBitMask(13, 0x10);
 	}
 	
 	public void setSheared(boolean sheared){
-		if (sheared){
-			set(16, getByte(12) | 0x10);
-		} else {
-			set(16, getByte(12) & (0xFF - 0x10));
-		}
+		setBitMask(13, 0x10, sheared);
 	}
 }

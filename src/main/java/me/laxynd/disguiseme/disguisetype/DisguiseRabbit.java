@@ -11,7 +11,7 @@ public class DisguiseRabbit extends DisguiseAnimal {
 	public DisguiseRabbit(){
 		super();
 		
-		dataTypes.put(12, VARINT);
+		dataTypes.put(13, VARINT);
 	}
 	
 	@Override
@@ -35,10 +35,10 @@ public class DisguiseRabbit extends DisguiseAnimal {
 	}
 	
 	public int getType(){
-		return getInteger(12);
+		return getInteger(13);
 	}
 	
 	public void setType(int type){
-		set(12, type);
+		set(13, type);
 	}
 }

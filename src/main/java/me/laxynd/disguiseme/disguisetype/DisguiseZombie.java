@@ -12,9 +12,8 @@ public class DisguiseZombie extends DisguiseMonster {
 	public DisguiseZombie(){
 		super();
 		
-		dataTypes.put(11, BOOLEAN);
-		dataTypes.put(12, VARINT);
-		dataTypes.put(13, BOOLEAN);
+		dataTypes.put(12, BOOLEAN);
+		dataTypes.put(13, VARINT);
 		dataTypes.put(14, BOOLEAN);
 	}
 	
@@ -25,7 +24,6 @@ public class DisguiseZombie extends DisguiseMonster {
 		if (e instanceof Zombie){
 			Zombie z = (Zombie) e;
 			setChild(z.isBaby());
-			setVillagerProfession(z.getVillagerProfession().ordinal());
 		} else throw new IllegalArgumentException();
 	}
 
@@ -40,28 +38,28 @@ public class DisguiseZombie extends DisguiseMonster {
 	}
 	
 	public boolean isChild(){
-		return getBoolean(11);
+		return getBoolean(12);
 	}
 	
 	public void setChild(boolean child){
-		set(11, child);
+		set(12, child);
 	}
 	
+	@Deprecated
 	public int getVillagerProfession(){
-		return getInteger(12);
+		return -1;
 	}
 	
-	public void setVillagerProfession(int villagerProfession){
-		set(12, villagerProfession);
-	}
+	@Deprecated
+	public void setVillagerProfession(int villagerProfession){}
 	
+	@Deprecated
 	public boolean isConverting(){
-		return getBoolean(13);
+		return false;
 	}
 	
-	public void setConverting(boolean converting){
-		set(13, converting);
-	}
+	@Deprecated
+	public void setConverting(boolean converting){}
 	
 	public boolean areHandsHeldUp(){
 		return getBoolean(14);
