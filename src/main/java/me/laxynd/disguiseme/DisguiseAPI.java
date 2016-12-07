@@ -184,14 +184,15 @@ public class DisguiseAPI {
 							WrappedDataWatcher watcher = getDefaultWatcher(dis.getEntityType(), event.getPlayer());
 
 							for (Entry<Integer, Object> entry : dis.metadata.entrySet()){
-								Serializer serializer = Registry.get(DataType.getClass(dis.dataTypes.get(entry.getKey())));
+								/*Serializer serializer = Registry.get(DataType.getClass(dis.dataTypes.get(entry.getKey())));
 
 								Object value = entry.getValue();
 
 								if (serializer.isOptional()){
 									value = Optional.of(entry.getValue());
 								}
-								watcher.setObject(new WrappedDataWatcherObject(entry.getKey(), serializer), value);
+								watcher.setObject(new WrappedDataWatcherObject(entry.getKey(), serializer), value);*/
+								watcher.setObject(entry.getKey(), entry.getValue());
 							}
 
 							packet.setMetadata(watcher);
@@ -611,9 +612,7 @@ public class DisguiseAPI {
 
 		if (e == null){
 			return;
-		} else if (disguise instanceof DisguisePlayer){
-			return;
-		}
+		} 
 
 		disguises.put(entityID, disguise);
 

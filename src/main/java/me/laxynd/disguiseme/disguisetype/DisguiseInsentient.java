@@ -7,22 +7,22 @@ public abstract class DisguiseInsentient extends DisguiseLivingEntity {
 	public DisguiseInsentient(){
 		super();
 		
-		dataTypes.put(10, BYTE);
+		dataTypes.put(11, BYTE);
 	}
 	
 	public boolean hasNoAI(){
-		return getBitMask(10, 0x01);
+		return getBitMask(11, 0x01);
 	}
 	
 	public void setNoAI(boolean noAI){
-		setBitMask(10, 0x01, noAI);
+		setBitMask(11, 0x01, noAI);
 	}
 	
 	public boolean isLeftHanded(){
-		return getBitMask(10, 0x02);
+		return getBitMask(11, 0x02);
 	}
 	
 	public void setLeftHanded(boolean leftHanded){
-		setBitMask(10, 0x02, leftHanded);
+		setBitMask(11, 0x02, leftHanded);
 	}
 }
